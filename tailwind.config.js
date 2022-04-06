@@ -2,6 +2,8 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     screens: {
+      xs: "320px",
+      
       sm: "640px",
 
       md: "768px",
@@ -14,8 +16,8 @@ module.exports = {
     },
     extend: {
       colors: {
-        clifford: '#da373d',
-      }
+        clifford: "#da373d",
+      },
     },
   },
   plugins: [],

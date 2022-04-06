@@ -1,41 +1,38 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useAtom } from "jotai";
+import { fetchUrlAtom } from "../jotai/Atoms";
 import Card from "../components/shared/Card";
 const News = () => {
-  const [news, setNews] = useState([]);
-  const key = process.env.REACT_APP_NEWS_API;
+  const [json] = useAtom(fetchUrlAtom);
 
-  useEffect(() => {
-    fetch(`https://newsapi.org/v2/top-headlines?country=in&apiKey=${key}`)
-      .then((res) => res.json())
-      .then((result) => {
-        setNews(result.articles);
-      });
-  }, []);
   return (
-    <div className="flex flex-col place-content-center">
-      {news.map((item, index) => {
-        return (
-          <Card
-            key={index}
-            className="m-10 w-3/5 border-2 grid justify-center "
-          >
-            <h1>{`${item.title.substring(0, 50)}...`}</h1>
-            <div
-              className="flex m-10 border-2 border-solid md:flex-nowrap lg:flex-nowrap sm:flex-wrap"
-              key={index}
-            >
-              <img className="h-40 w-60" src={item.urlToImage} alt="news" />
-              <p>{item.description}</p>
+    <div className="flex flex-wrap flex-col items-center z-50 ">
+      {json.articles.map((article, index) => (
+        <div
+          key={index}
+          className="bg-blue-100 flex flex-col w-3/5 border-2 border-solid m-4 rounded "
+        >
+          <h3 className=" font-serif text-base font-bold m-4">
+            {article.title.substring(0, 50)}...
+          </h3>
+          <Card key={index} className=" w-full flex p-1 rounded ">
+            <div className="w-full">
+              <img
+                className="h-40 w-60"
+                src={article.urlToImage}
+                alt="article"
+              />
+              <p>
+                {article.description && article.description.substring(0, 150)}
+                ...
+              </p>
             </div>
-            <button
-              className="rounded mb-4 mr-4 p-0.5 bg-blue-500 w-24 md:bg-green-500 justify-self-end"
-              type="submit"
-            >
-              <a href={item.url}>Read-More</a>
+            <button className="rounded m-4 p-0.5 bg-red-700 w-24 h-12">
+              <a href={article.url}>ReadMore</a>
             </button>
           </Card>
-        );
-      })}
+        </div>
+      ))}
     </div>
   );
 };
