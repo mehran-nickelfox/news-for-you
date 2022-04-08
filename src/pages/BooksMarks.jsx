@@ -1,14 +1,23 @@
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { getAuth } from "firebase/auth";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
 import { useAtom } from "jotai";
 import { bookmarksAtom } from "../jotai/Atoms";
 import { db } from "../firebase.config";
 import Card from "../components/shared/Card";
+import remove from "../assets/images/delete.png";
 const BooksMarks = () => {
   const auth = getAuth();
   const [bookmarks, setBookmarks] = useAtom(bookmarksAtom);
+
   useEffect(() => {
     const getBookmarks = async () => {
       const bookmarksRef = collection(db, "bookmarks");
@@ -28,6 +37,10 @@ const BooksMarks = () => {
     };
     getBookmarks();
   }, [auth.currentUser.uid, setBookmarks]);
+  const handleDelete = async (id) => {
+    await deleteDoc(doc(db, "bookmarks", id));
+    setBookmarks(bookmarks.filter((bookmark) => bookmark.id !== id));
+  };
   return (
     <motion.div
       initial={{ width: 0 }}
@@ -85,6 +98,12 @@ const BooksMarks = () => {
                 <div className="h-100 flex flex-col items-center justify-around">
                   <button className="rounded m-4 p-0.25 bg-red-700 w-32 h-12">
                     <a href={bookmark.data.link.url}>Know More</a>
+                  </button>
+                  <button
+                    className="rounded m-4 p-0.25 bg-red-700"
+                    onClick={() => handleDelete(bookmark.id)}
+                  >
+                    <img className='w-8' src={remove} alt="delete" />
                   </button>
                 </div>
               </Card>
