@@ -1,5 +1,6 @@
 import React from "react";
 import PrivateRoute from "../HOC/authWrapper";
+import BooksMarks from "../pages/BooksMarks";
 import Home from "../pages/Home";
 import News from "../pages/News";
 const allPaths = [
@@ -10,7 +11,10 @@ const allPaths = [
       {
         path: "",
         element: <PrivateRoute />,
-        children: [{ path: ":news", element: <News /> }],
+        children: [
+          { path: ":news", element: <News /> },
+          { path: "bookmarks", element: <BooksMarks/> },
+        ],
       },
     ],
   },
