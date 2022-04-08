@@ -4,7 +4,8 @@ export const newsAtom = atom([]);
 export const scrollAtom = atom(false);
 const key = process.env.REACT_APP_NEWS_API;
 const urlAtom = atom(
-  `https://newsapi.org/v2/top-headlines?country=in&apiKey=${key}`
+  `https://cors-anywhere.heroku.app.com/https://newsapi.org/v2/top-headlines?country=in&apiKey=${key}`,
+  { headers: new Headers({ "X-Requested-With": "XMLHttpRequest" }) }
 );
 export const fetchUrlAtom = atom(async (get) => {
   const response = await fetch(get(urlAtom));
