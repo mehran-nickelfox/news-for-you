@@ -7,7 +7,6 @@ import Waves from "./assets/data/waves.mp4";
 import Footer from "./components/shared/Footer";
 
 function App() {
-  console.log(process.env.REACT_APP_NWE_URL)
   return (
     <AnimatePresence>
       <div className="items-center justify-center">
