@@ -3,7 +3,7 @@ import { atom } from "jotai";
 export const newsAtom = atom([]);
 export const scrollAtom = atom(false);
 const urlAtom = atom(
-  `https://newsapi.org/v2/top-headlines?country=in&apiKey=2207cb0d3da34c0589ff1bcef4f3dfe1F`
+  `https://newsapi.org/v2/everything?q=bitcoin&apiKey=2207cb0d3da34c0589ff1bcef4f3dfe1`
 );
 export const fetchUrlAtom = atom(async (get) => {
   const response = await fetch(get(urlAtom));

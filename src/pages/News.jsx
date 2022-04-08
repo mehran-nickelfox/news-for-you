@@ -10,7 +10,7 @@ const News = () => {
   useEffect(() => {
     setNews(json.articles);
   }, [json.articles, news, setNews]);
-
+  console.log(news);
   return (
     <motion.div
       initial={{ width: 0 }}
