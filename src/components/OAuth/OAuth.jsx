@@ -36,14 +36,17 @@ const OAuth = () => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
+      animate={{ opacity: 1, transition: { duration: 2 } }}
       exit={{ opacity: 0 }}
       className="flex flex-col items-center space-y-6 absolute top-1/2 text-white font-bold text-6xl h-12 w-full"
     >
       <h3>Sign In Using Google:</h3>
-      <button className="py-6 px-6 rounded-full bg-white animate-bounce" onClick={onGoogleClick}>
+      <motion.button
+        className="py-6 px-6 rounded-full bg-white animate-bounce"
+        onClick={onGoogleClick}
+      >
         <img className="w-12" src={googleIcon} alt="Google" />
-      </button>
+      </motion.button>
     </motion.div>
   );
 };

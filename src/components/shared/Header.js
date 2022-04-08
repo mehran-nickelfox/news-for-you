@@ -14,26 +14,27 @@ const Header = () => {
     setUser(false);
   };
   return (
-    <div className=" z-50 sticky flex top-0 h-20 bg-slate-700 w-full justify-between ">
+    <div className=" z-10 sticky flex top-0 h-20 bg-slate-700 w-screen justify-between ">
+     
       <div className="flex items-center">
         <NavLink to="/">
           <img src={logo} alt="logo" className="w-36 ml-2" />
         </NavLink>
       </div>
       <div className="flex items-center w-60 mr-8 justify-between text-white">
-        {user && (
-          <>
-            <NavLink to="/news" className="text-2xl font-bold ">
-              News
-            </NavLink>
-            <NavLink to="/bookmarks" className="text-2xl font-bold ">
-              Bookmarks
-            </NavLink>
+        <>
+          <NavLink to="/news" className="text-2xl font-bold ">
+            News
+          </NavLink>
+          <NavLink to="/bookmarks" className="text-2xl font-bold ">
+            Bookmarks
+          </NavLink>
+          {user && (
             <button onClick={handleClick}>
               <img src={logout} alt="power" className="w-8 " />
             </button>
-          </>
-        )}
+          )}
+        </>
       </div>
     </div>
   );
