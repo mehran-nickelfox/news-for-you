@@ -1,16 +1,21 @@
 import React, { useEffect } from "react";
 import { useAtom } from "jotai";
 import { motion } from "framer-motion";
-import { newsAtom, fetchUrlAtom } from "../jotai/Atoms";
+import { newsAtom } from "../jotai/Atoms";
 import Card from "../components/shared/Card";
 import Marker from "../components/Marker/Marker";
 const News = () => {
   const [news, setNews] = useAtom(newsAtom);
-  const [json] = useAtom(fetchUrlAtom);
+  const fetchUrl = `https://newsapi.org/v2/everything?q=india&apiKey=2207cb0d3da34c0589ff1bcef4f3dfe1`;
   useEffect(() => {
-    setNews(json.articles);
-  }, [json.articles, news, setNews]);
-  console.log(news);
+    fetch(fetchUrl)
+      .then((response) => response.json())
+      .then((data) => {
+        setNews(data.articles);
+      })
+      .catch((err) => console.log(err));
+  }, [fetchUrl, setNews]);
+
   return (
     <motion.div
       initial={{ width: 0 }}
