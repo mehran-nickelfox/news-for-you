@@ -6,12 +6,19 @@ import Card from "../components/shared/Card";
 import Marker from "../components/Marker/Marker";
 const News = () => {
   const [news, setNews] = useAtom(newsAtom);
-  const fetchUrl = `https://newsapi.org/v2/everything?q=india&apiKey=2207cb0d3da34c0589ff1bcef4f3dfe1`;
+  const fetchUrl = `https://newsapi.org/v2/everything?q=india&language=en&apiKey=2207cb0d3da34c0589ff1bcef4f3dfe1`;
   useEffect(() => {
     fetch(fetchUrl)
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        else{
+          return response.json();
+        }
+      })
       .then((data) => {
-        setNews(data.articles);
+       setNews(data.articles);;
       })
       .catch((err) => console.log(err));
   }, [fetchUrl, setNews]);
