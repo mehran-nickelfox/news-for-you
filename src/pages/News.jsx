@@ -9,7 +9,7 @@ const News = () => {
   const [storage,setStorage] = useAtom(storageAtom);
   useEffect(() => {
     setStorage(json.articles)
-  }, [json.articles]);
+  }, [json.articles, setStorage]);
 
   return (
     <motion.div
