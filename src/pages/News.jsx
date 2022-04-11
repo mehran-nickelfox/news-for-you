@@ -1,27 +1,15 @@
 import React, { useEffect } from "react";
 import { useAtom } from "jotai";
 import { motion } from "framer-motion";
-import { newsAtom } from "../jotai/Atoms";
+import { newsAtom, fetchUrlAtom, storageAtom } from "../jotai/Atoms";
 import Card from "../components/shared/Card";
 import Marker from "../components/Marker/Marker";
 const News = () => {
-  const [news, setNews] = useAtom(newsAtom);
-  const fetchUrl = `https://newsapi.org/v2/everything?q=india&language=en&apiKey=2207cb0d3da34c0589ff1bcef4f3dfe1`;
+  const [json] = useAtom(fetchUrlAtom);
+  const [storage,setStorage] = useAtom(storageAtom);
   useEffect(() => {
-    fetch(fetchUrl)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        else{
-          return response.json();
-        }
-      })
-      .then((data) => {
-       setNews(data.articles);;
-      })
-      .catch((err) => console.log(err));
-  }, [fetchUrl, setNews]);
+    setStorage(json.articles)
+  }, [json.articles]);
 
   return (
     <motion.div
@@ -49,8 +37,8 @@ const News = () => {
           ▼
         </motion.h1>
       </div>
-      {news &&
-        news.map((article, index) => (
+      {storage &&
+        storage.map((article, index) => (
           <div
             key={index}
             className="bg-white text-white flex flex-col w-3/5 p-2 m-4 rounded-xl "
@@ -59,11 +47,11 @@ const News = () => {
               {article.title.substring(0, 50)}...
             </h3>
             <Card key={index} className=" w-full flex p-1 rounded ">
-              <div className="w-full flex md:flex-nowrap sm:flex-wrap">
+              <div className="w-full flex md:flex-nowrap sm:flex-wrap text-black">
                 <img
                   className="h-40 w-60 m-4 rounded"
                   src={article.urlToImage}
-                  alt={article.publishedAt}
+                  alt={article.source.name}
                 />
                 <p className="m-4 font-serif text-black">
                   {article.description === null ? (
