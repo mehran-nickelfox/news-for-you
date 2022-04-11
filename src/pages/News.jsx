@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import { useAtom } from "jotai";
 import { motion } from "framer-motion";
-import { newsAtom, fetchUrlAtom, storageAtom } from "../jotai/Atoms";
+import { fetchUrlAtom, storageAtom } from "../jotai/Atoms";
 import Card from "../components/shared/Card";
 import Marker from "../components/Marker/Marker";
 const News = () => {
   const [json] = useAtom(fetchUrlAtom);
-  const [storage,setStorage] = useAtom(storageAtom);
+  const [storage, setStorage] = useAtom(storageAtom);
   useEffect(() => {
-    setStorage(json.articles)
+    setStorage(json.articles);
   }, [json.articles, setStorage]);
 
   return (
